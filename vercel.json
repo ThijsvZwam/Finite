@@ -1,7 +1,7 @@
 {
   "functions": {
     "api/**/*.js": {
-      "regions": ["ams1"]
+      "regions": ["fra1"]
     }
   }
 }

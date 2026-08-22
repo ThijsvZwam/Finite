@@ -12,17 +12,31 @@ export default function Home() {
   const [currentUserId, setCurrentUserId] = useState(null);
 
   async function loadPosts(userId) {
-    setLoading(true);
-    try {
-      const res = await fetch(
-        `/api/posts?page=1&limit=20&following_only=true&user_id=${userId}`,
-      );
-      const data = await res.json();
-      setPosts(Array.isArray(data) ? data : []);
-    } finally {
-      setLoading(false);
+  setLoading(true);
+
+  try {
+    if (!userId) {
+      setPosts([]);
+      return;
     }
+
+    const res = await fetch(
+      `/api/posts?page=1&limit=20&following_only=true&user_id=${userId}`,
+      {
+        cache: "no-store",
+      }
+    );
+
+    if (!res.ok) {
+      throw new Error("Failed to load posts");
+    }
+
+    const data = await res.json();
+    setPosts(Array.isArray(data) ? data : []);
+  } finally {
+    setLoading(false);
   }
+}
 
   useEffect(() => {
     async function init() {

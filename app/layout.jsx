@@ -4,6 +4,7 @@ import React from "react";
 import LayoutWrapper from "../components/LayoutWrapper";
 import { createServerClient } from "@supabase/ssr";
 import { cookies } from "next/headers";
+import { Analytics } from "@vercel/analytics/next";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -64,6 +65,7 @@ export default async function RootLayout({ children }) {
     >
       <body className="min-h-full bg-black text-white">
         <LayoutWrapper initialUser={initialUser}>{children}</LayoutWrapper>
+        <Analytics />
       </body>
     </html>
   );
